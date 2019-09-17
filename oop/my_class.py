@@ -105,3 +105,53 @@ my_used_car.update_odometer(23500)
 my_used_car.read_odometer()
 my_used_car.increment_odometer(100)
 my_used_car.read_odometer()
+
+'''Inheritance of classes'''
+class ElectricCar(Car):
+    '''Eelectric car from Car'''
+    def __init__(self, make, model, year):
+        # Initialize father class attributes
+        super().__init__(make, model, year)
+        # Equal to 
+        # Car.__init__(self, make, model, year)
+
+        # Son class unique attributes
+        # self.battery_size = 70
+
+        self.battery = Battery()
+    
+    # # Define son methods
+    # def describe_battery(self):
+    #     '''Print info of battery'''
+    #     print('This car has a ' + str(self.battery_size) + '-kwh battery.')
+    
+    # Over write father methods
+    def fill_gas_tank(self):
+        '''Electric car has no gas tank'''
+        print("This car doesn't need a gas tank.")
+
+class Battery:
+    '''Simulate battery'''
+    def __init__(self, battery_size=70):
+        self.battery_size = battery_size
+    
+    def describe_battery(self):
+        '''Print info of battery'''
+        print("This car has a " + str(self.battery_size) + '-kwh battery.')
+    
+    def get_range(self):
+        '''Calculate range left'''
+        if self.battery_size == 70:
+            range = 240
+        elif self.battery_size == 80:
+            range = 270
+        
+        msg = "This car can go approximately " + str(range)
+        msg += ' miles on a full charge.'
+        print(msg)
+
+
+e = ElectricCar('tesla', 'model 3', 2019)
+print(e.get_descriptive_name())
+e.battery.describe_battery()
+e.battery.get_range()
