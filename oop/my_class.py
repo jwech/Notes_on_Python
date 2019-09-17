@@ -56,3 +56,52 @@ class User:
 u = User('joe', 'wei')
 u.describe_user()
 u.greet_user()
+
+class Car:
+    '''Simulate car class'''
+    def __init__(self, make, model, year):
+        self.make = make
+        self.model = model
+        self.year = year
+        # defaul value of attributes
+        self.odometer_reading = 0
+    
+    def get_descriptive_name(self):
+        '''return full info'''
+        long_name = str(self.year) + ' ' + self.make.title() + ' ' + self.model.title()
+        return long_name
+    
+    def read_odometer(self):
+        '''read odometer'''
+        print('This car has ' + str(self.odometer_reading) + ' miles on it.')
+    
+    def update_odometer(self, mileage):
+        '''update odometer'''
+        if mileage >= self.odometer_reading:
+            self.odometer_reading = mileage
+        else:
+            print('You cannot roll back an odomter.')
+    
+    def increment_odometer(self, mileage):
+        '''Increase odometer'''
+        self.odometer_reading += mileage
+
+my_new_car = Car('audi', 'a4', 2016)
+print(my_new_car.get_descriptive_name())
+my_new_car.read_odometer()
+
+# revise value of attributes directely
+my_new_car.odometer_reading = 23
+my_new_car.read_odometer()
+
+# revise value of attibutes through methods
+my_new_car.update_odometer(30)
+my_new_car.read_odometer()
+
+my_used_car = Car('subaru', 'outback', 2013)
+print(my_used_car.get_descriptive_name)
+
+my_used_car.update_odometer(23500)
+my_used_car.read_odometer()
+my_used_car.increment_odometer(100)
+my_used_car.read_odometer()
