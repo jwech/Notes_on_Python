@@ -1,6 +1,6 @@
 '''Read from files'''
 
-filename = './oop/pi_digits.txt'
+filename = 'pi_digits.txt'
 # Read all lines
 with open(filename) as f:
     contents = f.read()
@@ -24,7 +24,7 @@ print(pi_string)
 print(len(pi_string))
 
 '''Write to files'''
-filename = './oop/programming.txt'
+filename = 'programming.txt'
 with open(filename, 'w') as f:
     f.write("I love progamming.\n")
     f.write("I love creating new games.\n")
