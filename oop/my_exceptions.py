@@ -18,7 +18,17 @@ while True:
         answer = int(first_number) / int(second_number)
     except ZeroDivisionError:
         print("You can't divide by zero!")
+    # Deal with ValueError
     except ValueError:
         print("Please enter numbers.")
     else:
         print(answer)
+
+# Deal with FileNotFoundError
+filename = './oop/alice.txt'
+try:
+    with open(filename) as f:
+        contents = f.read()
+except FileNotFoundError:
+    msg = "Sorry, the file " + filename + "does not exist."
+    print(msg)
