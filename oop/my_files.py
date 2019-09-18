@@ -1,5 +1,6 @@
-filename = './oop/pi_digits.txt'
+'''Read from files'''
 
+filename = './oop/pi_digits.txt'
 # Read all lines
 with open(filename) as f:
     contents = f.read()
@@ -21,3 +22,14 @@ for line in lines:
     pi_string += line.strip()
 print(pi_string)
 print(len(pi_string))
+
+'''Write to files'''
+filename = './oop/programming.txt'
+with open(filename, 'w') as f:
+    f.write("I love progamming.\n")
+    f.write("I love creating new games.\n")
+
+'''Append to files'''
+with open(filename, 'a') as f:
+    f.write("I also love finding meaning in large datasets.\n")
+    f.write("I love creating apps that can run in a browser.\n")
