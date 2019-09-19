@@ -60,3 +60,58 @@ def greet_user():
 
 greet_user()
 
+# Rebuild code 
+# Use function to deal with different work
+def get_stored_username():
+    '''If username stored, get it, else return None'''
+    filename = 'username.json'
+    try:
+        with open(root+filename) as f:
+            username = json.load(f)
+    except FileNotFoundError:
+        return None
+    else:
+        return username
+
+def greet_user():
+    '''Greet user with username'''
+    username = get_stored_username()
+    if username:
+        print("Welcome back", username.title(), '!')
+    else:
+        username = input("What is your name? ")
+        with open(root+filename, 'w') as f:
+            json.dump(username, f)
+            print("We'll remember you when you come back,", username, '!')
+
+greet_user()
+
+# Rebuild code 
+# Use function to deal with different work
+def get_stored_username():
+    '''Return username if stored'''
+    try:
+        with open(root + filename) as f:
+            username = json.load(f)
+    except FileNotFoundError:
+        return None
+    else:
+        return username
+
+def get_new_username():
+    '''Get username and store'''
+    username = input("What is your name? ")
+    with open(root + filename, 'w') as f:
+        json.dump(username, f)
+    return username
+
+def greet_user():
+    '''Greet user with username'''
+    username = get_stored_username()
+    if username:
+        print("Welcome back,", username.title(), "!")
+    else:
+        get_new_username()
+        print("We'll remember you when you come back,", username.title(), "!")
+
+greet_user()
