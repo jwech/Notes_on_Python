@@ -40,3 +40,23 @@ except FileNotFoundError:
         json.dump(username, f)
 else:
     print('Welcome back, ' + username + '!')
+
+# Rebuild code
+import json
+
+def greet_user():
+    '''Greet users with username'''
+    filename = 'username.json'
+    try:
+        with open(root+filename) as f:
+            username = json.load(f)
+    except FileNotFoundError:
+        username = input("What is your name? ")
+        with open(root + filename) as f:
+            json.dump(username, f)
+            print("We'll remember you when you come back,", username, "!")
+    else:
+        print("Welcome back(greet),",  username.title(), "!")
+
+greet_user()
+
