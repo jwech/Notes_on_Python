@@ -1,6 +1,7 @@
 import sys
 import pygame
 from bullet import Bullet
+from alien import Alien
 
 
 def check_keydown_events(event, ai_settings, screen, ship, bullets):
@@ -31,13 +32,13 @@ def check_events(ai_settings, screen, ship, bullets):
         elif event.type == pygame.KEYUP:
             check_keyup_events(event, ship)
 
-def update_screen(ai_settings, screen, ship, alien, bullets):
+def update_screen(ai_settings, screen, ship, aliens, bullets):
     '''Update drawing on screen and switch to new screen'''
     # Redraw screen every loop
     screen.fill(ai_settings.bg_color)
-    ship.blitme()
-    alien.blitme()
 
+    ship.blitme()
+    aliens.draw(screen)
     for bullet in bullets.sprites():
         bullet.draw_bullet()
 
@@ -54,3 +55,48 @@ def fire_bullet(ai_settings, screen, ship, bullets):
     if len(bullets) < ai_settings.bullets_allowed:
         new_bullet = Bullet(ai_settings, screen, ship)
         bullets.add(new_bullet)
+
+def get_number_aliens_x(ai_settings, alien_width):
+    available_space_x = ai_settings.screen_width - 2*alien_width
+    number_aliens_x = int(available_space_x / (2*alien_width))
+    return number_aliens_x
+
+def get_number_aliens_y(ai_settings, alien_height, ship):
+    available_space_y = ai_settings.screen_height - 3*alien_height - ship.rect.height
+    number_aliens_y = int(available_space_y / (2*alien_height))
+    return number_aliens_y
+
+def create_alien(ai_settings, screen, aliens, alien_number_x, alien_number_y):
+    alien = Alien(ai_settings, screen)
+    alien_width = alien.rect.width
+    alien_height = alien.rect.height
+    alien.x = alien_width + 2*alien_width * alien_number_x
+    alien.y = alien_height + 2*alien_height * alien_number_y
+    alien.rect.x = alien.x
+    alien.rect.y = alien.y
+    aliens.add(alien)
+
+def create_fleet(ai_settings, screen, aliens, ship):
+    '''Create Alien fleet'''
+    alien = Alien(ai_settings, screen)
+    number_aliens_x = get_number_aliens_x(ai_settings, alien.rect.width)
+    number_aliens_y = get_number_aliens_y(ai_settings, alien.rect.height, ship)
+    
+    for alien_number_y in range(number_aliens_y):
+        for alien_number_x in range(number_aliens_x):
+            create_alien(ai_settings, screen, aliens, alien_number_x, alien_number_y)
+
+def update_aliens(ai_settings, aliens):
+    check_fleet_edges(ai_settings, aliens)    
+    aliens.update()
+
+def check_fleet_edges(ai_settings, aliens):
+    for alien in aliens.sprites():
+        if alien.check_edges():
+            change_fleet_direction(ai_settings, aliens)
+            break
+
+def change_fleet_direction(ai_settings, aliens):
+    for alien in aliens.sprites():
+        alien.rect.y += ai_settings.fleet_drop_speed
+    ai_settings.fleet_direction *= -1

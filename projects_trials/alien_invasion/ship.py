@@ -8,7 +8,7 @@ class Ship:
         self.ai_settings = ai_settings
     
         # load ship image and abtain outside rectangle
-        self.image = pygame.image.load('./projects_trials/alien_invasion/images/ship.bmp')
+        self.image = pygame.image.load('d:/p/projects_trials/alien_invasion/images/ship.bmp')
         self.rect = self.image.get_rect()
         self.screen_rect = screen.get_rect()
 
