@@ -1,2 +1,0 @@
-ettings = Settings()
-    scre
